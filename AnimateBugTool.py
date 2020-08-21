@@ -229,8 +229,12 @@ class AnimateBugDialog(QtWidgets.QDialog):
         for i, frame in enumerate(range(start_frame, end_frame, frame_interval)):
             length = len_interval*i
             self._key_object(curve, length, frame, object)
-
-        self._handle_looping(start_frame, end_frame, object)
+            
+        if self._is_loop_checkbox.isChecked():
+            self._handle_looping(start_frame, end_frame, object)
+        else:
+            # Key the last frame
+            self._key_object(curve, len_curve, end_frame, object)
         
     def _key_object(self, curve, length, frame, object):
         # Get characteristics of the curve at the specified length
@@ -257,13 +261,13 @@ class AnimateBugDialog(QtWidgets.QDialog):
         pymel.core.setKeyframe(object)
 
     def _handle_looping(self, start_key, end_key, object):
-        if self._is_loop_checkbox.isChecked():
             pymel.core.copyKey(object, time=start_key)
             pymel.core.pasteKey(object, time=end_key+1)
             
             # Smooth out curves
             pymel.core.keyTangent(object, attribute='translate', inTangentType='linear', time=start_key)
             pymel.core.keyTangent(object, attribute='translate', inTangentType='linear', time=end_key+1)
+
 
 
 if __name__ == "__main__":
