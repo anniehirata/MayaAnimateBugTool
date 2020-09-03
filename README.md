@@ -6,10 +6,13 @@ This tool will animate the object along the whole curve.
 * Start frame: frame number to start the animation at
 * End frame: frame number to end the animation at
 * Number of keys: number of keyframes
-* Radius around curve: maximum prependicular distance from the curve
+* Radius around curve: maximum perpendicular distance from the curve
+* Object up axis: the direction that the object's up axis will align closest with
 * Looping Animation: if checked, the animation will loop from the end frame back to the start frame
 
-Note: Keys are set at equal increments along the curve so the object moves at constant speed and only translate attributes will be keyed.
+Note: Keys are set at equal increments along the curve so the object moves at constant speed.
+
+Assumptions: The object's front and top are facing the -x and y directions and its scale at the start is [1, 1, 1].
 
 ## UI
 
