@@ -39,6 +39,9 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self.setMinimumWidth(400)
         self.setModal(False)
 
+        # For windows users
+        self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
+
         self._create_widgets()
         self._create_layouts()
         self._create_connections()
