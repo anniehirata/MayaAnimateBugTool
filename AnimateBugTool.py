@@ -136,20 +136,20 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self._setup_main_layout()
         
     def _create_curve_layout(self):
-        self._curve_layout = QtWidgets.QHBoxLayout(self)
+        self._curve_layout = QtWidgets.QHBoxLayout()
         self._curve_layout.addWidget(self._curve_label)
         self._curve_layout.addWidget(self._curve_input)
         self._curve_layout.addWidget(self._curve_button)
 
     def _create_object_layout(self):
-        self._object_layout = QtWidgets.QHBoxLayout(self)
+        self._object_layout = QtWidgets.QHBoxLayout()
         self._object_layout.addWidget(self._object_label)
         self._object_layout.addWidget(self._object_input)
         self._object_layout.addWidget(self._object_button)
 
     def _setup_settings_layout(self):
-        self._settings_layout = QtWidgets.QVBoxLayout(self)
-        self._settings_col_layout = QtWidgets.QHBoxLayout(self)
+        self._settings_layout = QtWidgets.QVBoxLayout()
+        self._settings_col_layout = QtWidgets.QHBoxLayout()
 
         # Setup sub settings layouts
         self._create_settings_col1_layout()
@@ -167,7 +167,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self._settings_layout.addWidget(self._is_loop_checkbox)
 
     def _create_settings_col1_layout(self):
-        self._settings_c1_layout = QtWidgets.QVBoxLayout(self)
+        self._settings_c1_layout = QtWidgets.QVBoxLayout()
         self._settings_c1_layout.addWidget(self._start_frame_label)
         self._settings_c1_layout.addWidget(self._start_frame_input)
 
@@ -175,7 +175,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self._settings_c1_layout.addWidget(self._number_keys_input)
 
     def _create_settings_col2_layout(self):
-        self._settings_c2_layout = QtWidgets.QVBoxLayout(self)
+        self._settings_c2_layout = QtWidgets.QVBoxLayout()
 
         self._settings_c2_layout.addWidget(self._end_frame_label)
         self._settings_c2_layout.addWidget(self._end_frame_input)
@@ -184,8 +184,8 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self._settings_c2_layout.addWidget(self._radius_input)
 
     def _create_axis_layout(self):
-        self._axis_layout = QtWidgets.QVBoxLayout(self)
-        self._checkbox_layout = QtWidgets.QHBoxLayout(self)
+        self._axis_layout = QtWidgets.QVBoxLayout()
+        self._checkbox_layout = QtWidgets.QHBoxLayout()
 
         self._checkbox_layout.addWidget(self._x_axis_checkbox)
         self._checkbox_layout.addWidget(self._y_axis_checkbox)
