@@ -46,6 +46,10 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self._create_layouts()
         self._create_connections()
 
+    # Don't pass key press events to the parent
+    def keyPressEvent(self, e):
+        super(TableExampleDialog, self).keyPressEvent(e)
+        e.accept()
 
     def _create_widgets(self):
         self._main_text = QtWidgets.QLabel("Select a curve to animate an object along")
