@@ -22,11 +22,4 @@ Assumptions: The object's front and top are facing the -x and y directions and i
 
     from AnimateBugTool import AnimateBugDialog
     
-    try:
-        dialog.close()
-        dialog.deleteLater()
-    except:
-        pass
-
-    dialog = AnimateBugDialog()
-    dialog.show()
+    AnimateBugDialog.show_dialog()

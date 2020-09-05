@@ -3,15 +3,7 @@ Tool to animate an existing object over a given nurbs curve
 
 To run:
 from AnimateBugTool import AnimateBugDialog
-
-try:
-    dialog.close()
-    dialog.deleteLater()
-except:
-    pass
-    
-dialog = AnimateBugDialog()
-dialog.show()
+AnimateBugDialog.show_dialog()
 '''
 
 from PySide2 import QtCore, QtWidgets, QtGui
@@ -30,6 +22,19 @@ def get_maya_window():
 
 
 class AnimateBugDialog(QtWidgets.QDialog):
+    dlg_instance = None
+
+    @classmethod
+    def show_dialog(cls):
+        if not cls.dlg_instance:
+            dlg_instance = AnimateBugDialog()
+
+        if cls.dlg_instance.isHidden():
+            cls.dlg_instance.show()
+        else:
+            cls.dlg_instance.raise_()
+            cls.dlg_instance.activateWindow()
+
     def __init__(self):
         maya_window = get_maya_window()
         super(AnimateBugDialog, self).__init__(maya_window)
