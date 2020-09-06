@@ -54,7 +54,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
 
     # Don't pass key press events to the parent
     def keyPressEvent(self, e):
-        super(TableExampleDialog, self).keyPressEvent(e)
+        super(AnimateBugDialog, self).keyPressEvent(e)
         e.accept()
 
     def _create_widgets(self):
