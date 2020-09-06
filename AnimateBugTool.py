@@ -9,6 +9,7 @@ AnimateBugDialog.show_dialog()
 from PySide2 import QtCore, QtWidgets, QtGui
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI
+import maya.OpenMaya
 import pymel.core
 import random
 
@@ -223,7 +224,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
         selected = pymel.core.ls(sl=True)
 
         if not selected:
-            QtWidgets.QMessageBox.warning(self, "Error", "No curve was selected.")
+            maya.OpenMaya.MGlobal.displayWarning("No curve was selected.")
             return
 
         self._curve_input.setText(str(selected[0]))
@@ -232,7 +233,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
         selected = pymel.core.ls(sl=True)
 
         if not selected:
-            QtWidgets.QMessageBox.warning(self, "Error", "No object was selected.")
+            maya.OpenMaya.MGlobal.displayWarning("No object was selected.")
             return
 
         self._object_input.setText(str(selected[0]))
@@ -244,23 +245,31 @@ class AnimateBugDialog(QtWidgets.QDialog):
 
         # Error checking
         if start_frame >= end_frame:
-            QtWidgets.QMessageBox.warning(self, "Error", "The end frame must be greater than the start frame.")
+            maya.OpenMaya.MGlobal.displayError("The end frame must be greater than the start frame.")
             return
 
         try:
+            if self._curve_input.text() == "":
+                maya.OpenMaya.MGlobal.displayError("No curve was selected")
+                return
             curve = pymel.core.PyNode(self._curve_input.text())
             # Type check the curve
             if type(curve.listRelatives()[0]) != pymel.core.nt.NurbsCurve:
-                QtWidgets.QMessageBox.warning(self, "Error", "The curve must be of type nurbs curve")
+                maya.OpenMaya.MGlobal.displayError("The curve must be of type nurbs curve")
+                return
 
         except pymel.core.MayaNodeError:
-            QtWidgets.QMessageBox.warning(self, "Error", "The curve selected does not exist")
+            maya.OpenMaya.MGlobal.displayError("The curve selected does not exist")
             return
 
         try:
+            if self._object_input.text() == "":
+                maya.OpenMaya.MGlobal.displayError("No object was selected")
+                return
             object = pymel.core.PyNode(self._object_input.text())
+
         except pymel.core.MayaNodeError:
-            QtWidgets.QMessageBox.warning(self, "Error", "The object selected does not exist")
+            maya.OpenMaya.MGlobal.displayError("The object selected does not exist")
             return
 
         # Get parameters based on settings and curve selected
@@ -271,7 +280,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
         frame_interval = total_frames//num_key_frames
 
         if len_curve == 0:
-            QtWidgets.QMessageBox.warning(self, "Error", "The length of this curve could not be computed.")
+            maya.OpenMaya.MGlobal.displayError("The length of this curve could not be computed.")
             return
 
         # Remove all keys
