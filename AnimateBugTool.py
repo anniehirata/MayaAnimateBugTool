@@ -45,6 +45,8 @@ class AnimateBugDialog(QtWidgets.QDialog):
         self.setMinimumWidth(400)
         self.setModal(False)
 
+        self.geometry = None
+
         # For windows users
         self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
 
@@ -348,6 +350,18 @@ class AnimateBugDialog(QtWidgets.QDialog):
             # Smooth out curves for a smoother transition
             pymel.core.keyTangent(object, inTangentType='linear', time=start_key)
             pymel.core.keyTangent(object, inTangentType='linear', time=end_key+1)
+
+    def showEvent(self, e):
+        super(AnimateBugDialog, self).showEvent(e)
+
+        if self.geometry:
+            self.restoreGeometry(self.geometry)
+
+    def closeEvent(self, e):
+        if isinstance(self, AnimateBugDialog):
+            super(AnimateBugDialog, self).closeEvent(e)
+
+            self.geometry = self.saveGeometry()
 
 
 
