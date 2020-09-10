@@ -28,7 +28,7 @@ class AnimateBugDialog(QtWidgets.QDialog):
     @classmethod
     def show_dialog(cls):
         if not cls.dlg_instance:
-            dlg_instance = AnimateBugDialog()
+            cls.dlg_instance = AnimateBugDialog()
 
         if cls.dlg_instance.isHidden():
             cls.dlg_instance.show()
